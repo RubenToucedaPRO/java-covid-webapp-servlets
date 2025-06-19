@@ -1,8 +1,7 @@
-package es.muralla.ad;
+package es.muralla.ad.covid.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,29 +12,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/datoscovidmun")
-public class ServletCovidMunicipioFecha extends HttpServlet {
+@WebServlet("/datoscovidcenter")
+public class CovidCentroEducativo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	String center;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		PrintWriter pw = response.getWriter();
 
+		center = request.getParameter("center");
+
 		List<DatoCovid> lista = new ArrayList<>();
-		String titulo;
-
-		String municipality = request.getParameter("municipality");
-		String dateString = request.getParameter("date");
-		if (dateString.isEmpty()) {
-			titulo = "<h1>Datos de covid de " + municipality + " </h1>";
-			lista = es.muralla.ad.covid.datos.Datos.getDatesByMunicipality(municipality);
-		} else {
-			LocalDate date = LocalDate.parse(dateString);
-			titulo = "<h1>Datos de covid de " + municipality + " en la fecha " + dateString + " </h1>";
-			lista = es.muralla.ad.covid.datos.Datos.getDatesByMunicipalityDayMonthYear(municipality, date);
-		}
-
+		lista = es.muralla.ad.covid.datos.Datos.getDatesByCenter(center);
+		String titulo = "Datos covid del centro " + center;
 		es.muralla.ad.covid.iu.Prints.print(pw, titulo, lista);
 
 	}

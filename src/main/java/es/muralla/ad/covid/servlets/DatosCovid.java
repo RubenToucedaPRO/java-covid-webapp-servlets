@@ -1,4 +1,4 @@
-package es.muralla.ad;
+package es.muralla.ad.covid.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/datoscovid")
-public class ServletDatosCovid extends HttpServlet {
+public class DatosCovid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
